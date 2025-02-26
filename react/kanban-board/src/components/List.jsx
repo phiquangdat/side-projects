@@ -1,10 +1,4 @@
 import Card from "./Card";
-export default function List() {
-  return (
-    <>
-      <ol>
-        <Card item={"Hello"} />
-      </ol>
-    </>
-  );
+export default function List({ listName }) {
+  return <></>;
 }
