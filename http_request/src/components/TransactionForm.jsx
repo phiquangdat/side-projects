@@ -1,36 +1,83 @@
-import { useContext } from "react";
+import { useContext, useActionState } from "react";
 import { BudgetContext } from "../context/BudgetContext";
-
+import SubmitButton from "./SubmitButton";
 export default function TransactionForm() {
-    const { addTransaction } = useContext(BudgetContext);
+  const { addTransaction } = useContext(BudgetContext);
+  function handleCreateTransaction(prevFormState, formData) {
+    const description = formData.get("description");
+    const amount = formData.get("amount");
+    const category = formData.get("category");
+    let errors = [];
 
-    function handleAdd(event) {
-        event.preventDefault();
-        const transaction = {
-            id: Math.random(),
-            description: event.target.description.value,
-            amount: parseFloat(event.target.amount.value),
-            category: event.target.category.value
-        }
-        addTransaction(transaction);
+    if (description.trim() == "") {
+      errors.push("Please enter description");
     }
-    return (
-        <form onSubmit={handleAdd}>
-            <label htmlFor="description">Description</label>
-            <input id="description" name="description"></input>
 
-            <label htmlFor="amount">Amount</label>
-            <input id="amount" name="amount"></input>
+    if (!amount) {
+      errors.push("Amount is not valid");
+    }
 
-            <label htmlFor="category">Category</label>
-            <select id="category" name="category">
-                <option value="salary">Salary</option>
-                <option value="gasoline">Gasoline</option>
-                <option value="food">Food</option>
-                <option value="magazines">Magazines</option>
-            </select>
+    if (category.trim() == "") {
+      errors.push("Please select a category");
+    }
+    if (errors.length > 0) {
+      return {
+        errors,
+        enteredValues: {
+          description,
+          amount,
+          category,
+        },
+      };
+    }
+    const transaction = {
+      id: Math.random(),
+      description,
+      amount,
+      category,
+    };
+    addTransaction(transaction);
+    return { errors: null };
+  }
+  const [formState, formAction] = useActionState(handleCreateTransaction, {
+    errors: null,
+  });
+  return (
+    <form action={formAction}>
+      <label htmlFor="description">Description</label>
+      <input
+        id="description"
+        name="description"
+        defaultValue={formState.enteredValues?.description}
+      ></input>
 
-            <button type="submit">Add Transaction</button>
-        </form>
-    );
+      <label htmlFor="amount">Amount</label>
+      <input
+        id="amount"
+        name="amount"
+        defaultValue={formState.enteredValues?.amount}
+      ></input>
+
+      <label htmlFor="category">Category</label>
+      <select
+        id="category"
+        name="category"
+        defaultValue={formState.enteredValues?.category}
+      >
+        <option value="salary">Salary</option>
+        <option value="gasoline">Gasoline</option>
+        <option value="food">Food</option>
+        <option value="magazines">Magazines</option>
+      </select>
+      {formState.errors && (
+        <ul className="errors">
+          {formState.errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
+
+      <SubmitButton pending_text="Loading" actual_text="Add Transaction" />
+    </form>
+  );
 }

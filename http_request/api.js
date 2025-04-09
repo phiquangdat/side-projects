@@ -1,5 +1,5 @@
 const url = "https://www.cc.puv.fi/~e2401782/php/BudgetTrackerAPI.php";
-const getTransaction = async () => {
+const get_Transaction = async () => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -71,7 +71,7 @@ const update_Transaction = async (transaction) => {
   }
 };
 export {
-  getTransaction,
+  get_Transaction,
   add_Transaction,
   delete_Transaction,
   update_Transaction,

@@ -6,7 +6,6 @@ export default function Transaction({ transaction }) {
   const { updateTransaction, deleteTransaction } = useContext(BudgetContext);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  console.log(transaction);
   return (
     <>
       <li className={transaction.amount > 0 ? "income" : "expense"}>

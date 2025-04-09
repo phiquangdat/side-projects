@@ -1,11 +1,10 @@
 import { createContext, useEffect, useReducer } from "react";
 import {
-  getTransaction,
+  get_Transaction,
   add_Transaction,
   delete_Transaction,
   update_Transaction,
 } from "../../api.js";
-import { act } from "react";
 export const BudgetContext = createContext(null);
 
 const initialState = {
@@ -52,11 +51,12 @@ export default function BudgetProvider({ children }) {
   const [state, dispatch] = useReducer(BudgetReducer, initialState);
 
   useEffect(() => {
-    const response = getTransaction();
-    response.then((data) => {
-      dispatch({ type: "SET_TRANSACTION", payload: data });
-    });
+    const response = get_Transaction();
+    response.then((data) => getTransaction(data));
   }, []);
+  function getTransaction(data) {
+    dispatch({ type: "SET_TRANSACTION", payload: data });
+  }
   function updateTransaction(transaction) {
     dispatch({ type: "UPDATE_TRANSACTION", payload: transaction });
   }
@@ -75,6 +75,7 @@ export default function BudgetProvider({ children }) {
       value={{
         transactions: state.transactions,
         saldo,
+        getTransaction,
         addTransaction,
         updateTransaction,
         deleteTransaction,
