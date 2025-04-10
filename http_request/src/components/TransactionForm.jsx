@@ -1,11 +1,11 @@
 import { useContext, useActionState } from "react";
 import { BudgetContext } from "../context/BudgetContext";
 import SubmitButton from "./SubmitButton";
-export default function TransactionForm() {
+export default function TransactionForm({ setOptimisticTransactions }) {
   const { addTransaction } = useContext(BudgetContext);
-  function handleCreateTransaction(prevFormState, formData) {
+  async function handleCreateTransaction(prevFormState, formData) {
     const description = formData.get("description");
-    const amount = formData.get("amount");
+    const amount = Number(formData.get("amount"));
     const category = formData.get("category");
     let errors = [];
 
@@ -35,8 +35,12 @@ export default function TransactionForm() {
       description,
       amount,
       category,
+      isOptimistic: true,
     };
-    addTransaction(transaction);
+    setOptimisticTransactions((prev) => [...prev, transaction]);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    addTransaction({ ...transaction, isOptimistic: false });
+
     return { errors: null };
   }
   const [formState, formAction] = useActionState(handleCreateTransaction, {

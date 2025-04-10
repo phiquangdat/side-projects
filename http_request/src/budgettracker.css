@@ -57,7 +57,8 @@ label {
   text-align: left;
 }
 
-input, select {
+input,
+select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -101,4 +102,9 @@ button:hover {
 
 .transaction-list li.expense {
   border-left: 5px solid #e74c3c;
+}
+
+.optimistic {
+  opacity: 0.6;
+  font-style: italic;
 }

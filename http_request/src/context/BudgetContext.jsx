@@ -67,7 +67,7 @@ export default function BudgetProvider({ children }) {
     dispatch({ type: "DELETE_TRANSACTION", payload: transactionId });
   }
   const saldo = state.transactions.reduce(
-    (prev, transaction) => prev + transaction.amount,
+    (prev, transaction) => prev + Number(transaction.amount),
     0
   );
   return (

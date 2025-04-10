@@ -8,7 +8,12 @@ export default function Transaction({ transaction }) {
 
   return (
     <>
-      <li className={transaction.amount > 0 ? "income" : "expense"}>
+      <li
+        className={[
+          transaction.amount > 0 ? "income" : "expense",
+          transaction.isOptimistic ? "optimistic" : "",
+        ].join(" ")}
+      >
         {transaction.description}{" "}
         <button onClick={() => updateTransaction(transaction)}>Edit</button>{" "}
         <button onClick={() => setShowConfirm(true)}>X</button>{" "}
