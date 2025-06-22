@@ -1,0 +1,103 @@
+# Apache Tomcat specific ignores
+logs/
+temp/
+work/
+webapps/*/WEB-INF/classes/
+webapps/*/WEB-INF/lib/*.jar
+
+# Java compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE and editor files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.metadata/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+*.out
+*.err
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Build directories
+target/
+build/
+dist/
+out/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+gradlew
+gradlew.bat
+
+# Node.js (if using any frontend tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Configuration files with sensitive data
+server.xml.bak
+context.xml.bak
+web.xml.bak
+
+# Tomcat specific runtime files
+catalina.pid
+*.pid
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Documentation build files
+docs/_build/
+site/
+
+# Test coverage reports
+coverage/
+*.lcov
+
+# Profiling data
+*.hprof 
