@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
-import useToggle from "../../hooks/useToggle";
-import { ProfileContext } from "../../providers/ProfileProvider";
+import useToggle from "../../hooks/useToggle.js";
+import { ProfileContext } from "../../providers/ProfileProvider.js";
 import { checkUsernameValidity } from "./checkUsernameValidity.js";
 
 import styles from "./Profile.module.css";
@@ -18,7 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     const load = async () => {
-      const userIconOptions = await import("./getIconOptions");
+      const userIconOptions = await import("./getIconOptions.js");
       setIconOptions(userIconOptions);
     };
 
